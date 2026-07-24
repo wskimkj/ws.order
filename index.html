@@ -753,12 +753,191 @@
     #productLookupFrame{height:calc(100vh - 84px);min-height:640px;}
   }
 
+
+
+  /* 재입고 조회 · 주문조회 디자인 시스템 공통 사용 */
+  #restockWorkspace{
+    width:100%;
+    max-width:1800px;
+    margin:0 auto;
+  }
+  .restock-header-meta{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    min-height:28px;
+    color:var(--ink-soft);
+    font-size:12px;
+  }
+  .restock-control-shell{
+    padding:12px;
+  }
+  .restock-search-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(180px,1fr)) 72px;
+    align-items:center;
+    gap:8px;
+  }
+  .restock-input-wrap{
+    position:relative;
+    min-width:0;
+  }
+  .restock-input-wrap input[type="text"]{
+    width:100%;
+    height:38px;
+    padding:8px 34px 8px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#fff;
+    color:var(--ink);
+    font-size:13px;
+    outline:none;
+    transition:border-color .15s;
+  }
+  .restock-input-wrap input[type="text"]:focus{border-color:var(--accent);}
+  .restock-clear-btn{
+    position:absolute;
+    top:50%;
+    right:7px;
+    width:24px;
+    height:24px;
+    min-width:24px;
+    padding:0;
+    transform:translateY(-50%);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    border:0;
+    border-radius:50%;
+    background:transparent;
+    color:#8a949f;
+    font-size:18px;
+    font-weight:400;
+    line-height:1;
+  }
+  .restock-clear-btn:hover{background:#eef2f0;color:var(--accent);opacity:1;}
+  #restockSearchButton{
+    height:38px;
+    padding:0 14px;
+    font-size:13px;
+  }
+  .restock-filter-area{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid #d6e2dd;
+  }
+  .restock-filter-pills{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .restock-filter-pill{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:32px;
+    padding:0 12px;
+    border:1px solid #cdded7;
+    border-radius:999px;
+    background:#fff;
+    color:var(--accent);
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    user-select:none;
+    transition:background .15s,border-color .15s,color .15s;
+  }
+  .restock-filter-pill:hover{background:#f4f8f6;}
+  .restock-filter-pill.active{
+    border-color:var(--accent);
+    background:var(--accent);
+    color:#fff;
+  }
+  .restock-filter-pill input{
+    position:absolute;
+    width:1px;
+    height:1px;
+    opacity:0;
+    pointer-events:none;
+  }
+  .restock-status-line{
+    min-width:0;
+    color:var(--ink-soft);
+    font-size:12px;
+    text-align:right;
+  }
+  .restock-status-line strong{color:var(--accent);}
+  .restock-result-meta{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin:14px 0 8px;
+    color:var(--ink-soft);
+    font-size:13px;
+  }
+  .restock-result-meta strong{color:var(--ink);}
+  .restock-result-table{
+    min-width:1660px;
+    table-layout:auto;
+  }
+  .restock-result-table th,
+  .restock-result-table td{white-space:nowrap;}
+  .restock-result-table th.text-right,
+  .restock-result-table td.text-right{text-align:right;}
+  .restock-status-pill{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:25px;
+    padding:0 9px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:800;
+    white-space:nowrap;
+  }
+  .restock-status-upcoming{background:#e8f2ee;color:#2f5d50;}
+  .restock-status-recent{background:#edf2fb;color:#365c91;}
+  .restock-status-unknown{background:#f4f1ea;color:#7a6743;}
+  .restock-source-link{
+    color:var(--accent);
+    font-weight:800;
+    text-decoration:none;
+  }
+  .restock-source-link:hover{text-decoration:underline;}
+  .restock-keyword-mark{
+    padding:0 2px;
+    border-radius:3px;
+    background:#fff0b8;
+    color:inherit;
+  }
+  #restockResultArea{transition:opacity .12s ease;}
+  #restockResultArea.result-loading{opacity:.52;pointer-events:none;}
+
+  @media(max-width:980px){
+    .restock-search-grid{grid-template-columns:1fr 1fr;}
+    #restockSearchButton{grid-column:2;}
+  }
+  @media(max-width:720px){
+    .restock-search-grid{grid-template-columns:1fr;}
+    #restockSearchButton{grid-column:auto;width:100%;}
+    .restock-filter-area{align-items:flex-start;flex-direction:column;}
+    .restock-status-line{text-align:left;}
+    .restock-header-meta{justify-content:flex-start;}
+  }
+
 </style>
 </head>
 <body>
 <nav class="workspace-tabbar" aria-label="조회 메뉴">
   <button type="button" class="workspace-tab active" data-workspace-tab="orders" aria-selected="true">주문조회</button>
   <button type="button" class="workspace-tab" data-workspace-tab="products" aria-selected="false">상품조회</button>
+  <button type="button" class="workspace-tab" data-workspace-tab="restock" aria-selected="false">재입고</button>
 </nav>
 <div id="orderWorkspace" class="workspace-panel">
 <div class="wrap">
@@ -953,6 +1132,74 @@
       loading="lazy"
       referrerpolicy="strict-origin-when-cross-origin"
     ></iframe>
+  </div>
+</section>
+
+<section id="restockWorkspace" class="workspace-panel" hidden>
+  <div class="wrap">
+    <header class="top-header compact-header">
+      <div class="header-title">
+        <div class="eyebrow">RESTOCK MANAGER · REORDER</div>
+        <h1>재입고 조회</h1>
+        <div class="latest-upload header-latest-upload" role="status" aria-live="polite">
+          <div class="latest-upload-main">
+            <span class="latest-upload-label">조회 기준</span>
+            <span class="latest-upload-file">생산팀 원본 시트</span>
+            <span class="latest-upload-meta">상품명·상품코드·컬러 검색</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right-zone">
+        <div id="restockLastUpdated" class="restock-header-meta">검색 대기 중</div>
+      </div>
+    </header>
+
+    <section class="top-control-shell restock-control-shell" aria-label="재입고 검색">
+      <div class="restock-search-grid">
+        <div class="restock-input-wrap">
+          <input type="text" id="restockProductName" placeholder="상품명 검색 예: 라자르" autocomplete="off" />
+          <button type="button" class="restock-clear-btn" data-restock-clear="restockProductName" aria-label="상품명 지우기">×</button>
+        </div>
+        <div class="restock-input-wrap">
+          <input type="text" id="restockProductCode" placeholder="상품코드 검색 예: WS25" autocomplete="off" />
+          <button type="button" class="restock-clear-btn" data-restock-clear="restockProductCode" aria-label="상품코드 지우기">×</button>
+        </div>
+        <div class="restock-input-wrap">
+          <input type="text" id="restockColor" placeholder="컬러 검색 예: BEIGE / 베이지" autocomplete="off" />
+          <button type="button" class="restock-clear-btn" data-restock-clear="restockColor" aria-label="컬러 지우기">×</button>
+        </div>
+        <button type="button" id="restockSearchButton">조회</button>
+      </div>
+
+      <div class="restock-filter-area">
+        <div class="restock-filter-pills" id="restockFilterPills" aria-label="재입고 상태 필터">
+          <label class="restock-filter-pill active" data-restock-filter="all">
+            <input type="radio" name="restockStatusFilter" value="all" checked />전체
+          </label>
+          <label class="restock-filter-pill" data-restock-filter="입고예정">
+            <input type="radio" name="restockStatusFilter" value="입고예정" />입고예정
+          </label>
+          <label class="restock-filter-pill" data-restock-filter="최근입고">
+            <input type="radio" name="restockStatusFilter" value="최근입고" />최근입고
+          </label>
+          <label class="restock-filter-pill" data-restock-filter="일정미정">
+            <input type="radio" name="restockStatusFilter" value="일정미정" />일정미정
+          </label>
+        </div>
+        <div class="restock-status-line" id="restockStatus">생산팀 원본 시트 기준으로 재입고 일정을 조회합니다.</div>
+      </div>
+    </section>
+
+    <div class="restock-result-meta">
+      <div>조회 결과 <strong id="restockResultInfo">0</strong>건</div>
+      <div>상태 필터를 선택하면 현재 결과에서 바로 분류됩니다.</div>
+    </div>
+
+    <div id="restockResultArea">
+      <div class="state">검색어를 입력하고 조회 버튼을 눌러주세요.</div>
+    </div>
+
+    <footer>WHITE SANDS RESTOCK MANAGER · 생산팀 원본 시트 연동</footer>
   </div>
 </section>
 
@@ -3545,16 +3792,251 @@ uploadBtn.addEventListener("click", async () => {
 });
 </script>
 
+
+
 <script>
 (() => {
-  const orderWorkspace = document.getElementById("orderWorkspace");
-  const productWorkspace = document.getElementById("productWorkspace");
+  const API_URL = "https://script.google.com/macros/s/AKfycbw8aZE9eD5EqXv0rheNV9_Q74ga0FAszJxmvlPLIzrgVHXt35apqa5rxp-a5XEnzyktug/exec";
+
+  const productNameInput = document.getElementById("restockProductName");
+  const productCodeInput = document.getElementById("restockProductCode");
+  const colorInput = document.getElementById("restockColor");
+  const searchButton = document.getElementById("restockSearchButton");
+  const statusEl = document.getElementById("restockStatus");
+  const resultEl = document.getElementById("restockResultArea");
+  const resultInfoEl = document.getElementById("restockResultInfo");
+  const lastUpdatedEl = document.getElementById("restockLastUpdated");
+
+  if(!productNameInput || !productCodeInput || !colorInput || !searchButton || !statusEl || !resultEl || !resultInfoEl){
+    return;
+  }
+
+  let latestResults = [];
+  let currentStatusFilter = "all";
+
+  searchButton.addEventListener("click", searchRestock);
+
+  [productNameInput, productCodeInput, colorInput].forEach(input => {
+    input.addEventListener("keydown", event => {
+      if(event.key === "Enter") searchRestock();
+    });
+
+    input.addEventListener("input", () => {
+      const clearButton = document.querySelector(`[data-restock-clear="${input.id}"]`);
+      if(clearButton) clearButton.style.display = input.value.trim() ? "inline-flex" : "none";
+    });
+  });
+
+  document.querySelectorAll(".restock-filter-pill").forEach(pill => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".restock-filter-pill").forEach(item => item.classList.remove("active"));
+      pill.classList.add("active");
+
+      const input = pill.querySelector("input");
+      if(input){
+        input.checked = true;
+        currentStatusFilter = input.value;
+      }
+
+      renderResults(latestResults);
+    });
+  });
+
+  document.querySelectorAll("[data-restock-clear]").forEach(button => {
+    button.addEventListener("click", () => {
+      const target = document.getElementById(button.dataset.restockClear || "");
+      if(!target) return;
+      target.value = "";
+      target.focus();
+      button.style.display = "none";
+    });
+  });
+
+  async function searchRestock(){
+    const productName = productNameInput.value.trim();
+    const productCode = productCodeInput.value.trim();
+    const color = colorInput.value.trim();
+
+    if(!productName && !productCode && !color){
+      statusEl.textContent = "상품명, 상품코드 또는 컬러를 입력해주세요.";
+      resultEl.innerHTML = '<div class="state">검색어가 없습니다.</div>';
+      resultInfoEl.textContent = "0";
+      latestResults = [];
+      return;
+    }
+
+    const params = new URLSearchParams({ productName, productCode, color });
+
+    searchButton.disabled = true;
+    searchButton.textContent = "조회 중";
+    statusEl.textContent = "생산팀 원본 시트에서 최신 데이터를 조회하고 있습니다...";
+    resultEl.classList.add("result-loading");
+    resultEl.innerHTML = '<div class="state">조회 중...</div>';
+    resultInfoEl.textContent = "-";
+    if(lastUpdatedEl) lastUpdatedEl.textContent = "조회 중...";
+
+    try{
+      const response = await fetch(`${API_URL}?${params.toString()}`, { method:"GET" });
+      if(!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const data = await response.json();
+      if(!data.success){
+        statusEl.textContent = data.message || "조회에 실패했습니다.";
+        resultEl.innerHTML = '<div class="state">조회 결과가 없습니다.</div>';
+        resultInfoEl.textContent = "0";
+        latestResults = [];
+        return;
+      }
+
+      latestResults = Array.isArray(data.results) ? data.results : [];
+      statusEl.innerHTML = `<strong>${latestResults.length.toLocaleString("ko-KR")}건</strong> 조회 완료`;
+      if(lastUpdatedEl){
+        lastUpdatedEl.textContent = data.searchedAt ? `마지막 조회: ${data.searchedAt}` : "조회 완료";
+      }
+      renderResults(latestResults);
+    }catch(error){
+      console.error("재입고 조회 오류:", error);
+      statusEl.textContent = "오류가 발생했습니다. Apps Script 배포 URL 또는 권한 설정을 확인해주세요.";
+      resultEl.innerHTML = '<div class="state error">재입고 데이터를 불러오지 못했습니다.</div>';
+      resultInfoEl.textContent = "0";
+      latestResults = [];
+      if(lastUpdatedEl) lastUpdatedEl.textContent = "조회 오류";
+    }finally{
+      resultEl.classList.remove("result-loading");
+      searchButton.disabled = false;
+      searchButton.textContent = "조회";
+    }
+  }
+
+  function renderResults(items){
+    const filtered = filterByStatus(items || []);
+    resultInfoEl.textContent = filtered.length.toLocaleString("ko-KR");
+
+    if(!filtered.length){
+      resultEl.innerHTML = '<div class="state">검색 결과가 없습니다.</div>';
+      return;
+    }
+
+    resultEl.innerHTML = `
+      <div class="table-scroll">
+        <table class="restock-result-table">
+          <thead>
+            <tr>
+              <th>상태</th>
+              <th>오더 날짜</th>
+              <th>품번 / 상품코드</th>
+              <th>컬러</th>
+              <th>입고처</th>
+              <th>완성센터</th>
+              <th>물류 입고예정일</th>
+              <th class="text-right">오더수량</th>
+              <th class="text-right">1차 입고</th>
+              <th class="text-right">2차 입고</th>
+              <th class="text-right">3차 입고</th>
+              <th class="text-right">미입고 수량</th>
+              <th>상품명</th>
+              <th>원본시트</th>
+              <th>원본</th>
+            </tr>
+          </thead>
+          <tbody>${filtered.map(renderRow).join("")}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function renderRow(item){
+    const keyword = [
+      productNameInput.value.trim(),
+      productCodeInput.value.trim(),
+      colorInput.value.trim(),
+    ].filter(Boolean).join("|");
+
+    const sourceUrl = String(item?.sourceUrl || "").trim();
+    const sourceLink = sourceUrl
+      ? `<a class="restock-source-link" href="${escapeAttribute(sourceUrl)}" target="_blank" rel="noopener noreferrer">원본보기</a>`
+      : "-";
+
+    return `
+      <tr>
+        <td>${renderStatus(item?.status)}</td>
+        <td>${escapeHtml(item?.orderDate || item?.reorderDate || "")}</td>
+        <td>${highlightText(item?.productCode, keyword)}</td>
+        <td>${highlightText(item?.color, keyword)}</td>
+        <td>${escapeHtml(item?.warehouse)}</td>
+        <td>${escapeHtml(item?.completionCenterDate || item?.jsDate || "")}</td>
+        <td>${escapeHtml(item?.logisticsDate)}</td>
+        <td class="text-right">${escapeHtml(item?.totalOrderQty)}</td>
+        <td class="text-right">${escapeHtml(item?.firstQty)}</td>
+        <td class="text-right">${escapeHtml(item?.secondQty)}</td>
+        <td class="text-right">${escapeHtml(item?.thirdQty)}</td>
+        <td class="text-right">${escapeHtml(item?.remainingQty)}</td>
+        <td>${highlightText(item?.productName, keyword)}</td>
+        <td>${escapeHtml(item?.sourceSheet)}${item?.sourceRow ? ` / ${escapeHtml(item.sourceRow)}행` : ""}</td>
+        <td>${sourceLink}</td>
+      </tr>`;
+  }
+
+  function renderStatus(status){
+    let className = "restock-status-unknown";
+    if(status === "입고예정") className = "restock-status-upcoming";
+    if(status === "최근입고") className = "restock-status-recent";
+    return `<span class="restock-status-pill ${className}">${escapeHtml(status || "확인필요")}</span>`;
+  }
+
+  function filterByStatus(items){
+    if(currentStatusFilter === "all") return items;
+    if(currentStatusFilter === "일정미정"){
+      return items.filter(item => item?.status === "일정미정" || item?.status === "일정확인필요");
+    }
+    return items.filter(item => item?.status === currentStatusFilter);
+  }
+
+  function highlightText(text, keywordPattern){
+    let highlighted = escapeHtml(text || "");
+    if(!keywordPattern) return highlighted;
+
+    const keywords = keywordPattern.split("|").map(value => value.trim()).filter(Boolean);
+    keywords.forEach(keyword => {
+      const safeKeyword = escapeRegExp(escapeHtml(keyword));
+      if(!safeKeyword) return;
+      highlighted = highlighted.replace(new RegExp(safeKeyword, "gi"), match => `<mark class="restock-keyword-mark">${match}</mark>`);
+    });
+    return highlighted;
+  }
+
+  function escapeRegExp(value){
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function escapeHtml(value){
+    if(value === null || value === undefined) return "";
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function escapeAttribute(value){
+    return escapeHtml(value).replace(/`/g, "&#096;");
+  }
+})();
+</script>
+
+<script>
+(() => {
+  const workspaces = {
+    orders: document.getElementById("orderWorkspace"),
+    products: document.getElementById("productWorkspace"),
+    restock: document.getElementById("restockWorkspace"),
+  };
   const productFrame = document.getElementById("productLookupFrame");
   const productFrameShell = document.getElementById("productFrameShell");
   const tabs = [...document.querySelectorAll("[data-workspace-tab]")];
 
   function normalizeWorkspace(value){
-    return value === "products" ? "products" : "orders";
+    return value === "products" || value === "restock" ? value : "orders";
   }
 
   function workspaceFromHash(){
@@ -3569,10 +4051,10 @@ uploadBtn.addEventListener("click", async () => {
 
   function activateWorkspace(workspace, updateHash=false){
     const selected = normalizeWorkspace(workspace);
-    const showProducts = selected === "products";
 
-    orderWorkspace.hidden = showProducts;
-    productWorkspace.hidden = !showProducts;
+    Object.entries(workspaces).forEach(([name, panel]) => {
+      if(panel) panel.hidden = name !== selected;
+    });
 
     tabs.forEach(tab => {
       const active = tab.dataset.workspaceTab === selected;
@@ -3580,7 +4062,7 @@ uploadBtn.addEventListener("click", async () => {
       tab.setAttribute("aria-selected", String(active));
     });
 
-    if(showProducts) ensureProductFrame();
+    if(selected === "products") ensureProductFrame();
 
     if(updateHash){
       const nextHash = `#${selected}`;
